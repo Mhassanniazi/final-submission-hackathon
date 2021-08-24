@@ -1,13 +1,11 @@
-//SignOut
-
+// SignOut
 function signOut() {
     firebase.auth().signOut()
     localStorage.clear()
     location.reload()
 }
 
-//Restaurant Name on Nav 
-
+// Restaurant Name on Navbar 
 function restaurantOnNav() {
     if (localStorage.getItem('restaurant') && localStorage.getItem('uid')) {
         let a = document.getElementById('name')
@@ -18,7 +16,7 @@ function restaurantOnNav() {
     }
 }
 
-//Sending Dish to Firebase 
+// adding dishes to database
 
 async function addDish() {
     dishName = document.getElementById('dishName').value
@@ -45,8 +43,7 @@ async function addDish() {
     }, 1000)
 }
 
-//Getting Dishes From Firebase
-
+// dishes from database
 function dishes() {
     if (localStorage.getItem('uid')) {
         uid = localStorage.getItem('uid')
@@ -70,16 +67,14 @@ function dishes() {
     restaurantOnNav()
 }
 
-//Deleting Dish 
-
+// dish deletion
 function deleteItem(a) {
     let uid = localStorage.getItem('uid')
     firebase.database().ref('Restaurants').child(uid).child('Dishes').child(a).remove()
     location.reload()
 }
 
-//Showing Pending Orders
-
+// Pending Orders
 function placedOrders() {
     document.getElementById('orderList').innerHTML = `
     <tr>
@@ -113,22 +108,19 @@ function placedOrders() {
     restaurantOnNav()
 }
 
-//Accepting Order
-
+// Order Acceptance
 function acceptOrder(a) {
     x = firebase.database().ref('Orders').child(a).child('status').set('Accepted')
     location.reload()
 }
 
-//Rejecting Order
-
+// Order Rejection
 function rejectOrder(a) {
     x = firebase.database().ref('Orders').child(a).child('status').set('Rejected')
     location.reload()
 }
 
-//Showing Accepted Orders
-
+// Accepted Orders
 function acceptedOrders() {
     document.getElementById('orderList').innerHTML = `
     <tr>
@@ -162,15 +154,13 @@ function acceptedOrders() {
     restaurantOnNav()
 }
 
-//Deliver Order
-
+// Deliver Order
 function deliverOrder(a) {
     x = firebase.database().ref('Orders').child(a).child('status').set('Delivered')
     location.reload()
 }
 
-//Showing Delivered Orders
-
+// Delivered Orders
 function deliveredOrders() {
     document.getElementById('orderList').innerHTML = `
     <tr>
