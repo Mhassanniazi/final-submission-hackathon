@@ -1,13 +1,11 @@
-//SignOut
-
+// SignOut
 function signOut() {
     firebase.auth().signOut()
     localStorage.clear()
     location.reload()
 }
 
-//Customer on NavBar
-
+// Customer/user name apperance on Navbar
 function customerOnNav() {
     if (localStorage.getItem('customer') && localStorage.getItem('uid')) {
         let a = document.getElementById('name')
@@ -18,8 +16,7 @@ function customerOnNav() {
     }
 }
 
-//Getting Restaurants Name
-
+// restaurants name from database
 function restaurants() {
     if (localStorage.getItem('uid')) {
         rest = firebase.database().ref('Restaurants').on('value', (data) => {
@@ -40,6 +37,7 @@ function restaurants() {
     customerOnNav()
 }
 
+// getting dishes provided by restaurants
 function restaurantItems(resUid) {
     document.getElementById('cards').innerHTML = " "
     dish = firebase.database().ref('Restaurants').child(resUid).child('Dishes').on('value', (data) => {
@@ -60,8 +58,7 @@ function restaurantItems(resUid) {
     })
 }
 
-//Placing Order 
-
+// order placement
 function placeOrder(resUid, dishUid) {
     userUid = localStorage.getItem('uid')
     customerName = localStorage.getItem('customer')
@@ -76,8 +73,7 @@ function placeOrder(resUid, dishUid) {
     alert('Order Placed')
 }
 
-//Showing Cart
-
+// cart data
 function cart() {
     document.getElementById('orderList').innerHTML = `
     <tr>
@@ -119,8 +115,7 @@ function cart() {
     customerOnNav()
 }
 
-//Cancel Order
-
+// order cancellation
 function cancelOrder(a) {
     userUid = localStorage.getItem('uid')
     firebase.database().ref('Orders').child(a).remove()
